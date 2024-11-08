@@ -6,7 +6,7 @@ const parseNumber = (number, defaultValue) => {
   if (Number.isNaN(parsedNumber)) {
     return defaultValue;
   }
-  return parseNumber;
+  return parsedNumber;
 };
 
 export const parsePaginationParams = (query) => {

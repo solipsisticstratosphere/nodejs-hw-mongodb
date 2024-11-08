@@ -1,4 +1,3 @@
-// src/index.js
 import pino from 'pino-http';
 import express from 'express';
 import cors from 'cors';
