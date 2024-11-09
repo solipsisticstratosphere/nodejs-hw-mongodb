@@ -7,17 +7,15 @@ export const createContactSchema = Joi.object({
     'string.max': 'Имя должно содержать не более {#limit} символов',
     'any.required': 'Имя обязательно для заполнения',
   }),
-  phoneNumber: Joi.number().integer().min(6).max(16).required().messages({
-    'number.base': 'Номер телефона должен быть числом',
-    'number.integer': 'Номер телефона должен быть целым числом',
+  phoneNumber: Joi.string().min(6).max(16).required().messages({
+    'string.base': 'Номер телефона должен быть строкой',
     'number.min': 'Номер телефона должен содержать не менее {#limit} цифр',
     'number.max': 'Номер телефона должен содержать не более {#limit} цифр',
     'any.required': 'Номер телефона обязателен для заполнения',
   }),
-  email: Joi.string().email().required().messages({
+  email: Joi.string().email().messages({
     'string.base': 'Email должен быть строкой',
     'string.email': 'Email должен быть действительным',
-    'any.required': 'Email обязателен для заполнения',
   }),
   isFavourite: Joi.boolean().messages({
     'boolean.base': 'Поле "Избранный" должно быть логическим значением',
