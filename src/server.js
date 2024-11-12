@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { env } from './utils/env.js';
 import contactsRouter from './routers/contacts.js';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler.js';
+import authRouter from './routers/auth.js';
 dotenv.config();
 const PORT = Number(env('PORT', '3000'));
 export const setupServer = () => {
@@ -18,6 +19,8 @@ export const setupServer = () => {
       transport: { target: 'pino-pretty' },
     }),
   );
+
+  app.use('/auth', authRouter);
 
   app.use('/contacts', contactsRouter);
 
