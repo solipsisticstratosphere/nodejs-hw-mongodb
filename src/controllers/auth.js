@@ -30,13 +30,24 @@ export const registerController = async (req, res) => {
     res.status(201).json({
       status: 201,
       message: 'Successfully registered user',
+      data: {
+        name: data.user,
+        email: data.email,
+      },
     });
   } catch (error) {
-    console.error(error);
-    res.status(400).json({
-      status: 400,
-      message: 'User registration failed',
-    });
+    if (error.status === 409) {
+      res.status(409).json({
+        status: 409,
+        message: 'Email in use',
+      });
+    } else {
+      console.error(error);
+      res.status(400).json({
+        status: 400,
+        message: 'User registration failed',
+      });
+    }
   }
 };
 

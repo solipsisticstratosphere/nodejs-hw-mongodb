@@ -9,18 +9,14 @@ export const getAllContacts = async ({
   sortBy = '_id',
   filter = {},
 }) => {
-  const query = ContactsCollection.find();
+  const query = ContactsCollection.find(filter);
 
-  if (filter.userId) {
-    query.where('userId').equals(filter.userId);
-  }
-  const limit = perPage;
+  const contactsCount = await ContactsCollection.countDocuments(filter);
+
   const skip = (page - 1) * perPage;
-  const contactsQuery = ContactsCollection.find();
-  const contactsCount = await ContactsCollection.find()
-    .merge(contactsQuery)
-    .countDocuments();
-  const contacts = await contactsQuery
+  const limit = perPage;
+
+  const contacts = await query
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortOrder })
@@ -34,8 +30,11 @@ export const getAllContacts = async ({
   };
 };
 
-export const getContactById = async (contactId) => {
-  const contact = await ContactsCollection.findById(contactId);
+export const getContactById = async (contactId, userId) => {
+  const contact = await ContactsCollection.findOne({
+    _id: contactId,
+    userId,
+  });
   return contact;
 };
 
@@ -44,30 +43,31 @@ export const createContact = async (payload) => {
   return contact;
 };
 
-export const deleteContact = async (contactId) => {
+export const deleteContact = async (contactId, userId) => {
   const contact = await ContactsCollection.findOneAndDelete({
     _id: contactId,
+    userId,
   });
   return contact;
 };
 
-export const updateContact = async (contactId, payload, options = {}) => {
+export const updateContact = async (contactId, payload, userId) => {
   const rawResult = await ContactsCollection.findOneAndUpdate(
     {
       _id: contactId,
+      userId,
     },
     payload,
     {
       new: true,
-      includeResultMetadata: true,
-      ...options,
+      upsert: true,
     },
   );
 
-  if (!rawResult || !rawResult.value) return null;
+  if (!rawResult) return null;
 
   return {
-    contact: rawResult.value,
-    isNew: Boolean(rawResult?.lastErrorObject.upserted),
+    contact: rawResult,
+    isNew: rawResult.upserted ? true : false,
   };
 };
