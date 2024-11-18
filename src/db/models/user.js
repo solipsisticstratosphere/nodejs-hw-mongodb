@@ -3,7 +3,7 @@ import { emailRegexp } from '../../constants/user.js';
 
 const userSchema = new Schema(
   {
-    user: {
+    name: {
       type: String,
       required: true,
     },

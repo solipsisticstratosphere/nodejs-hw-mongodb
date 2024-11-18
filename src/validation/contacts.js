@@ -37,7 +37,7 @@ export const updateContactSchema = Joi.object({
     'string.min': 'Имя должно содержать не менее {#limit} символов',
     'string.max': 'Имя должно содержать не более {#limit} символов',
   }),
-  phoneNumber: Joi.number().integer().min(6).max(16).messages({
+  phoneNumber: Joi.string().min(6).max(16).messages({
     'number.base': 'Номер телефона должен быть числом',
     'number.integer': 'Номер телефона должен быть целым числом',
     'number.min': 'Номер телефона должен содержать не менее {#limit} цифр',

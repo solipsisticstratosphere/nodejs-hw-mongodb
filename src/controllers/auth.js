@@ -31,7 +31,7 @@ export const registerController = async (req, res) => {
       status: 201,
       message: 'Successfully registered user',
       data: {
-        name: data.user,
+        name: data.name,
         email: data.email,
       },
     });
