@@ -1,0 +1,36 @@
+type: object
+required:
+  - name
+  - phoneNumber
+  - contactType
+properties:
+  name:
+    description: "Contact's name"
+    type: string
+    minLength: 3
+    maxLength: 30
+    example: 'Jane Doe'
+  phoneNumber:
+    description: "Contact's phone number"
+    type: string
+    minLength: 6
+    maxLength: 16
+    example: '+1234567890'
+  email:
+    description: "Contact's email"
+    type: string
+    format: email
+    example: 'jane.doe@example.com'
+  isFavourite:
+    description: 'Indicates if the contact is marked as favorite'
+    type: boolean
+    example: true
+  contactType:
+    description: 'Type of contact'
+    type: string
+    enum: ['work', 'home', 'personal']
+    example: 'work'
+  photo:
+    description: "Link to student's photo"
+    type: string
+    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png

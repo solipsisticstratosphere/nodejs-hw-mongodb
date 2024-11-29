@@ -8,6 +8,7 @@ import { errorHandler, notFoundHandler } from './middlewares/errorHandler.js';
 import authRouter from './routers/auth.js';
 import cookieParser from 'cookie-parser';
 import { UPLOAD_DIR } from './constants/index.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 dotenv.config();
 const PORT = Number(env('PORT', '3000'));
 export const setupServer = () => {
@@ -26,6 +27,7 @@ export const setupServer = () => {
 
   app.use('/contacts', contactsRouter);
   app.use('/uploads', express.static(UPLOAD_DIR));
+  app.use('/api-docs', swaggerDocs());
   app.use('*', notFoundHandler);
 
   app.use(errorHandler);
