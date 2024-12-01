@@ -2,14 +2,17 @@
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
-    "title": "Students app",
+    "title": "Contacts app",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "This is a documentation of students app"
+    "description": "This is a documentation of contacts app"
   },
   "servers": [
+    {
+      "url": "https://nodejs-hw-mongodb-1-dqgd.onrender.com"
+    },
     {
       "url": "http://localhost:3000"
     },
@@ -104,24 +107,6 @@
             },
             "example": "work",
             "description": "Filter by contact type"
-          },
-          {
-            "in": "query",
-            "name": "minPhoneLength",
-            "schema": {
-              "type": "integer"
-            },
-            "example": 6,
-            "description": "Minimum phone number length for filtering"
-          },
-          {
-            "in": "query",
-            "name": "maxPhoneLength",
-            "schema": {
-              "type": "integer"
-            },
-            "example": 16,
-            "description": "Maximum phone number length for filtering"
           }
         ],
         "responses": {
@@ -309,7 +294,7 @@
         ],
         "summary": "Get contact by id",
         "operationId": "getContact",
-        "description": "Get student by id",
+        "description": "Get contact by id",
         "security": [
           {
             "bearerAuth": []

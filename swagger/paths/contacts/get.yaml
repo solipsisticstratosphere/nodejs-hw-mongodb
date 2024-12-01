@@ -44,18 +44,6 @@ parameters:
       enum: ['work', 'home', 'personal']
     example: 'work'
     description: 'Filter by contact type'
-  - in: query
-    name: minPhoneLength
-    schema:
-      type: integer
-    example: 6
-    description: 'Minimum phone number length for filtering'
-  - in: query
-    name: maxPhoneLength
-    schema:
-      type: integer
-    example: 16
-    description: 'Maximum phone number length for filtering'
 responses:
   '200':
     description: Successfully retrieved contacts!
