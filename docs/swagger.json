@@ -31,7 +31,7 @@
     }
   ],
   "paths": {
-    "/students": {
+    "/contacts": {
       "get": {
         "tags": [
           "Contacts"
