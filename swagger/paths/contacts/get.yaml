@@ -31,19 +31,6 @@ parameters:
       enum: ['asc', 'desc']
       example: 'asc'
     description: "Sort order: 'asc' for ascending, 'desc' for descending"
-  - in: query
-    name: isFavourite
-    schema:
-      type: boolean
-    example: true
-    description: 'Filter by favourite status'
-  - in: query
-    name: contactType
-    schema:
-      type: string
-      enum: ['work', 'home', 'personal']
-    example: 'work'
-    description: 'Filter by contact type'
 responses:
   '200':
     description: Successfully retrieved contacts!

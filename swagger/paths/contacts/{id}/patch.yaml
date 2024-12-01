@@ -2,7 +2,9 @@ tags:
   - Contacts
 summary: Update contact details by ID
 operationId: patchContactById
-description: 'Partially update the contact details for the given contact ID'
+description: >
+  Partially update the contact details for the given contact ID. If the provided ID
+  does not exist, a 404 error will be returned.
 security:
   - bearerAuth: []
 parameters:
@@ -11,7 +13,7 @@ parameters:
     required: true
     schema:
       type: string
-    description: 'Unique identifier of the contact to update'
+    description: Unique identifier of the contact to update
     example: 65e4decdd286b30065d54af9
 requestBody:
   content:
@@ -20,29 +22,29 @@ requestBody:
         type: object
         properties:
           name:
-            description: "Contact's name"
+            description: Contact's name
             type: string
             example: 'Jane Doe'
           phoneNumber:
-            description: "Contact's phone number"
+            description: Contact's phone number
             type: string
             example: '+123456789'
           email:
-            description: "Contact's email address"
+            description: Contact's email address
             type: string
             format: email
             example: 'jane.doe@example.com'
           isFavourite:
-            description: 'Indicates if the contact is marked as favourite'
+            description: Indicates if the contact is marked as favourite
             type: boolean
             example: true
           contactType:
-            description: 'Type of contact (work, home, or personal)'
+            description: Type of contact (work, home, or personal)
             type: string
             enum: ['work', 'home', 'personal']
             example: 'work'
           photo:
-            description: 'Updated photo of the contact'
+            description: Updated photo of the contact
             type: string
             format: binary
 responses:
@@ -67,6 +69,20 @@ responses:
               type: object
               $ref: '../../../components/schemas/contact.yaml'
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    description: The contact ID does not exist.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - error
+          properties:
+            status:
+              type: integer
+              example: 404
+            error:
+              type: string
+              example: Contact with the provided ID was not found.
   '401':
     $ref: '../../../components/responses/401.yaml'

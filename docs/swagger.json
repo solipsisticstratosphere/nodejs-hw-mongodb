@@ -84,29 +84,6 @@
               "example": "asc"
             },
             "description": "Sort order: 'asc' for ascending, 'desc' for descending"
-          },
-          {
-            "in": "query",
-            "name": "isFavourite",
-            "schema": {
-              "type": "boolean"
-            },
-            "example": true,
-            "description": "Filter by favourite status"
-          },
-          {
-            "in": "query",
-            "name": "contactType",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "work",
-                "home",
-                "personal"
-              ]
-            },
-            "example": "work",
-            "description": "Filter by contact type"
           }
         ],
         "responses": {
@@ -352,7 +329,7 @@
         ],
         "summary": "Update contact details by ID",
         "operationId": "patchContactById",
-        "description": "Partially update the contact details for the given contact ID",
+        "description": "Partially update the contact details for the given contact ID. If the provided ID does not exist, a 404 error will be returned.\n",
         "security": [
           {
             "bearerAuth": []
@@ -451,7 +428,28 @@
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "$ref": "#/components/responses/404"
+            "description": "The contact ID does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "error"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "Contact with the provided ID was not found."
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -618,7 +616,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Resource not found"
+                      "example": "Contact not found or access denied"
                     }
                   }
                 }
