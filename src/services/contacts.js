@@ -71,3 +71,18 @@ export const updateContact = async (contactId, payload, userId) => {
     isNew: rawResult.upserted ? true : false,
   };
 };
+export const patchContact = async (contactId, payload, userId) => {
+  const rawResult = await ContactsCollection.findOneAndUpdate(
+    {
+      _id: contactId,
+      userId,
+    },
+    { $set: payload },
+    {
+      new: true,
+      upsert: false,
+    },
+  );
+
+  return rawResult;
+};

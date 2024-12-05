@@ -4,6 +4,7 @@ import {
   deleteContact,
   getAllContacts,
   getContactById,
+  patchContact,
   updateContact,
 } from '../services/contacts.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
@@ -123,19 +124,19 @@ export const patchContactController = async (req, res, next) => {
     }
   }
 
-  const result = await updateContact(
+  const contact = await patchContact(
     contactId,
     { ...req.body, photo: photoUrl },
     userId,
   );
 
-  if (!result) {
+  if (!contact) {
     throw createHttpError(404, 'Contact not found or access denied');
   }
 
-  res.json({
+  res.status(200).json({
     status: 200,
-    message: 'Successfully patched a contact!',
-    data: result.contact,
+    message: 'Successfully patched the contact!',
+    data: contact,
   });
 };
